@@ -1,0 +1,465 @@
+/* ---------------- CSS 변수 (테마 정의) ---------------- */
+:root[color-theme='light'] {
+  --surface-default: #F2F0EE; /* 일반 모드 배경 */
+  --btn-default: #FFFFFF;
+  --btn-svg-hover: #FFA500;
+  --text-default: #000000;
+  --select-bg: #FFFFFF;
+  --video-border: #000000;
+  --icon-fill: #222222; /* 아이콘 기본색 */
+}
+
+:root[color-theme='dark'] {
+  --surface-default: #17171C; /* 다크 모드 배경 */
+  --btn-default: #23232B;
+  --btn-svg-hover: gold;
+  --text-default: #e0e0e0;
+  --select-bg: #333;
+  --video-border: #FFFFFF;
+  --icon-fill: #e0e0e0; /* 아이콘 다크모드색 */
+}
+
+/* ---------------- 전역 및 레이아웃 스타일 ---------------- */
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--surface-default); /* 변수 사용 */
+    color: var(--text-default); /* 변수 사용 */
+    padding: 20px 20px 40px; /* 하단 패딩을 40px로 늘림 */
+    margin: 0;
+    transition: background-color 0.5s, color 0.5s; 
+}
+
+/* ---------------- 비디오 래퍼 스타일 (왼쪽 정렬 복구) ---------------- */
+.video-wrapper {
+    /* 이 래퍼가 내부 absolute 요소의 기준이 됩니다. */
+    position: relative;
+    width: 100%;
+    max-width: 512px;
+    margin: 0;
+}
+
+.pose-side-panel {
+    display: grid;
+    gap: 14px;
+}
+
+.pose-metric-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.pose-metric-box {
+    border: 1px solid rgba(128, 128, 128, 0.35);
+    border-radius: 10px;
+    padding: 12px 14px;
+    background-color: var(--btn-default);
+}
+
+.pose-angle-label {
+    margin: 0;
+    opacity: 0.75;
+    font-size: 0.9rem;
+}
+
+.pose-angle-value {
+    margin: 2px 0 0;
+    font-size: 1.75rem;
+    font-weight: 700;
+}
+
+.pose-cam-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.pose-cam-card h3 {
+    margin: 0 0 4px;
+    font-size: 0.88rem;
+    font-weight: 600;
+}
+
+.pose-cam-frame {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border: 1px solid rgba(128, 128, 128, 0.35);
+    border-radius: 8px;
+    overflow: hidden;
+    background: #000;
+}
+
+.pose-cam-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ---------------- 로고 스타일 (왼쪽 상단 고정) ---------------- */
+.nsu-logo {
+    position: fixed; 
+    top: 20px; 
+    left: 20px; 
+    height: 40px; 
+    width: auto;
+    z-index: 1000;
+    transition: filter 0.5s;
+}
+
+/* 다크 모드일 때 로고 색상 반전 방지 */
+:root[color-theme='dark'] .nsu-logo {
+    filter: none; 
+}
+
+/* 메인 제목 스타일 (NSU CONTROL STATION) */
+.main-title {
+    text-align: center; 
+    font-size: 2.5em; 
+    margin-top: 0;
+    margin-bottom: 20px;
+    letter-spacing: 2px; 
+    color: var(--text-default);
+}
+
+/* 서브 제목 스타일 (Robot-Arm CAM) */
+.sub-title {
+    text-align: left;
+    font-size: 1.5em;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: var(--text-default);
+}
+
+.main-head-row {
+    display: grid;
+    grid-template-columns: 512px 1fr;
+    gap: 28px;
+    align-items: end;
+    max-width: 980px;
+}
+
+.main-content-row {
+    display: grid;
+    grid-template-columns: 512px 1fr;
+    gap: 28px;
+    align-items: start;
+    max-width: 980px;
+}
+
+.pose-title {
+    margin-top: 0;
+}
+
+/* H1, H2, 입력 요소 폰트 색상 설정 */
+h1, h2, label, select, input, button { 
+    color: var(--text-default);
+}
+select,
+input {
+    background-color: var(--select-bg);
+    border: 1px solid var(--text-default);
+    padding: 5px;
+    border-radius: 3px;
+}
+
+/* 카메라 화면 스타일 */
+#videoElement {
+    width: 100%;
+    max-width: 512px;
+    aspect-ratio: 4 / 3;
+    height: auto;
+    object-fit: cover;
+    position: static; 
+    border: 3px solid var(--video-border); 
+    display: block;
+    background-color: #000;
+    transition: border 0.5s;
+}
+
+/* ---------------- 다크/라이트 토글 버튼 스타일 (고정 배치) ---------------- */
+.dark-light-toggle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: fixed; /* 오른쪽 상단 고정 */
+  top: 20px;
+  right: 20px;
+
+  width: 50px;
+  height: 50px;
+  background-color: var(--btn-default);
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  z-index: 1000; 
+
+  transition: background-color 0.5s;
+}   
+
+.icon30 {
+  display: flex;
+  justify-content: center;
+  align-items: center;      
+  width: 30px;
+  height: 30px;  
+  position: absolute;
+}
+.icon30>svg{
+  transition: fill 0.5s, transform 0.5s ease;   
+}
+
+.sun {
+  animation: rise-animation 1s forwards; 
+  transform-origin: 50% 200%
+}
+.moon {
+  animation: set-animation 1s forwards;
+  transform-origin: 50% 200%;
+}
+
+/* 다크 모드 시 애니메이션 반전 */
+:root[color-theme='dark'] .dark-light-toggle .sun {
+  animation: set-animation 1s forwards; 
+}
+:root[color-theme='dark'] .dark-light-toggle .moon {
+  animation: rise-animation 1s forwards; 
+}
+
+/* 호버 효과 */
+.dark-light-toggle:hover svg {
+  fill: var(--btn-svg-hover);
+  transform: scale(1.2);
+}
+
+@keyframes rise-animation {
+  from {
+    transform: rotate(180deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes set-animation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(180deg);
+  }
+}
+
+/* ---------------- 카메라 제어 패드 스타일 (우측 하단 고정) ---------------- */
+#camera-control-pad {
+    position: absolute;
+    /* 우측 하단에 위치시킵니다. */
+    bottom: 15px; /* 아래쪽에서 15px 위로 */
+    right: 15px; /* 오른쪽에서 15px 왼쪽으로 */
+    
+    display: grid;
+    /* 3x3 레이아웃 */
+    grid-template-columns: 1fr 1fr 1fr; 
+    grid-template-rows: 1fr 1fr 1fr;
+    width: 120px; /* **수정: 패드 전체 폭을 120px로 축소** */
+    height: 120px; /* **수정: 패드 전체 높이를 120px로 축소** */
+    
+    background-color: rgba(255, 255, 255, 0.1); /* 반투명 배경 */
+    border-radius: 5px;
+    z-index: 9; 
+}
+
+/* 버튼 배치 정의 */
+#btn-up-left   { grid-area: 1 / 1 / 2 / 2; } 
+#btn-up        { grid-area: 1 / 2 / 2 / 3; } 
+#btn-up-right  { grid-area: 1 / 3 / 2 / 4; } 
+
+#btn-left      { grid-area: 2 / 1 / 3 / 2; } 
+#btn-stop      { grid-area: 2 / 2 / 3 / 3; } 
+#btn-right     { grid-area: 2 / 3 / 3 / 4; } 
+
+#btn-down-left { grid-area: 3 / 1 / 4 / 2; }
+#btn-down      { grid-area: 3 / 2 / 4 / 3; } 
+#btn-down-right{ grid-area: 3 / 3 / 4 / 4; }
+
+.control-btn {
+    font-size: 14px; /* **수정: 버튼 폰트 크기를 14px로 축소** */
+    font-weight: bold;
+    color: var(--text-default);
+    background-color: transparent; /* 버튼 자체 배경 투명 */
+    border: none; 
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 호버 및 다크 모드 스타일 */
+.control-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* 호버 시 반투명 강조 */
+}
+:root[color-theme='dark'] .control-btn {
+    background-color: transparent;
+    border: none;
+}
+:root[color-theme='dark'] .control-btn:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* 다크 모드 호버 시 */
+}
+
+/* ---------------- Setup 화면 ---------------- */
+.setup-body {
+    min-height: 100vh;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 12px;
+    box-sizing: border-box;
+}
+
+.setup-card {
+    width: min(840px, calc(100vw - 24px));
+    max-height: 100%;
+    background-color: var(--btn-default);
+    border: 1px solid rgba(128, 128, 128, 0.35);
+    border-radius: 12px;
+    padding: 20px;
+    display: grid;
+    gap: 8px;
+    overflow: hidden;
+}
+
+.setup-title {
+    margin: 0;
+    font-size: 1.45rem;
+}
+
+.setup-inline-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.setup-inline-field {
+    display: grid;
+    gap: 6px;
+}
+
+.setup-desc {
+    margin: 0 0 6px;
+    opacity: 0.8;
+}
+
+.setup-actions {
+    margin-top: 8px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.setup-actions button {
+    border: 1px solid var(--text-default);
+    background-color: var(--select-bg);
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 6px 10px;
+    font-size: 0.9rem;
+}
+
+.setup-message {
+    min-height: 18px;
+    margin: 0;
+    margin-right: auto;
+    font-size: 0.85rem;
+}
+
+.preview-grid {
+    margin-top: 4px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(120px, 1fr));
+    row-gap: 10px;
+    column-gap: 12px;
+    max-width: 920px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media (max-width: 980px) {
+    .main-head-row,
+    .main-content-row {
+        grid-template-columns: 1fr;
+        max-width: 512px;
+    }
+
+    .preview-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 560px) {
+    .preview-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .pose-metric-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.preview-card h3 {
+    margin: 0 0 6px;
+    font-size: 0.86rem;
+}
+
+.preview-frame {
+    position: relative;
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    border-radius: 8px;
+    overflow: hidden;
+    background: #000;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+}
+
+.preview-frame img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.preview-msg {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 8px;
+    font-size: 0.8rem;
+    background: rgba(0, 0, 0, 0.45);
+    color: #f2f2f2;
+}
+
+.preview-msg[hidden] {
+    display: none !important;
+}
+
+
+.demo-watermark {
+    position: fixed;
+    left: 20px;
+    bottom: 16px;
+    z-index: 999;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    opacity: 0.45;
+    color: var(--text-default);
+    pointer-events: none;
+}

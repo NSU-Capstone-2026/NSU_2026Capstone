@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>NSU 8조 Capstone</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/src/img/favicon.png">
+    <link rel="stylesheet" href="src/style.css"> 
+</head>
+<body color-theme="light"> 
+
+    <button class="dark-light-toggle" aria-hidden="true">
+      <div class="icon30 sun"> 
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#222222"><path d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z"/></svg>
+      </div>
+      <div class="icon30 moon">      
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFFFFF"><path d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z"/></svg>
+      </div>
+    </button>
+    
+    <header>
+      <img src="src/img/nsu_logo.png" alt="NSU Logo" class="nsu-logo">
+      
+      <h1 class="main-title">NSU CONTROL STATION</h1>
+    </header>
+
+    <div class="main-head-row">
+      <h2 class="sub-title">Robot-Arm CAM</h2>
+      <h2 class="sub-title pose-title">Pose Monitor</h2>
+    </div>
+    <div id="demoWatermark" class="demo-watermark" hidden>DEMO MODE</div>
+
+
+    <div class="main-content-row">
+        <div class="video-wrapper">
+            <img id="videoElement" alt="ESP32-CAM Stream">
+
+                <div id="camera-control-pad">
+                    <button class="control-btn" id="btn-up-left">↖</button>
+                    <button class="control-btn" id="btn-up">▲</button>
+                    <button class="control-btn" id="btn-up-right">↗</button>
+                    
+                    <button class="control-btn" id="btn-left">◀</button>
+                    <button class="control-btn" id="btn-stop">◼</button>
+                    <button class="control-btn" id="btn-right">▶</button>
+                    
+                    <button class="control-btn" id="btn-down-left">↙</button>
+                    <button class="control-btn" id="btn-down">▼</button>
+                    <button class="control-btn" id="btn-down-right">↘</button>
+                </div>
+            </div>
+
+        <aside class="pose-side-panel">
+            <div class="pose-metric-grid">
+                <div class="pose-metric-box">
+                    <p class="pose-angle-label">어깨각도</p>
+                    <p id="poseShoulderAngle" class="pose-angle-value">--.-°</p>
+                </div>
+                <div class="pose-metric-box">
+                    <p class="pose-angle-label">팔꿈치각도</p>
+                    <p id="poseElbowAngle" class="pose-angle-value">--.-°</p>
+                </div>
+                <div class="pose-metric-box">
+                    <p class="pose-angle-label">손목각도</p>
+                    <p id="poseWristAngle" class="pose-angle-value">--.-°</p>
+                </div>
+                <div class="pose-metric-box">
+                    <p class="pose-angle-label">상체회전각</p>
+                    <p id="poseTorsoAngle" class="pose-angle-value">--.-°</p>
+                </div>
+            </div>
+
+            <div class="pose-cam-grid">
+                <section class="pose-cam-card">
+                    <h3>Cam 1</h3>
+                    <div class="pose-cam-frame">
+                        <img id="poseCam1" alt="Pose camera 1 preview">
+                    </div>
+                </section>
+                <section class="pose-cam-card">
+                    <h3>Cam 2</h3>
+                    <div class="pose-cam-frame">
+                        <img id="poseCam2" alt="Pose camera 2 preview">
+                    </div>
+                </section>
+                <section class="pose-cam-card">
+                    <h3>Cam 3</h3>
+                    <div class="pose-cam-frame">
+                        <img id="poseCam3" alt="Pose camera 3 preview">
+                    </div>
+                </section>
+            </div>
+        </aside>
+    </div>
+    
+    <script src="src/theme_handler.js"></script>
+    <script src="src/robot_cam.js"></script>
+
+</body>
+</html>

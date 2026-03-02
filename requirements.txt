@@ -1,0 +1,7 @@
+numpy
+opencv-contrib-python
+PyYAML
+ultralytics
+flask
+flask-cors
+pyserial
